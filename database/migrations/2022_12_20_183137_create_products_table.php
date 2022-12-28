@@ -24,13 +24,13 @@ return new class extends Migration
             $table->integer('RD')->nullable();
             $table->integer('ATV')->nullable();
             $table->double('TTI')->nullable();
-            $table->string('sCD')->nullable();
+            $table->double('sCD')->nullable();
             $table->string('sSD')->nullable();
             $table->string('sVAT')->nullable();
             $table->string('sAIT')->nullable();
             $table->string('sRD')->nullable();
             $table->string('sATV')->nullable();
-            $table->string('sTTI')->nullable();
+            $table->double('sTTI')->nullable();
             $table->string('TARIFF')->nullable();
             $table->timestamps();
         });
