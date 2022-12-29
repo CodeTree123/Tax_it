@@ -25,5 +25,14 @@ class UserSeeder extends Seeder
             'role_id'=>1,
             'password'=> Hash::make('taxadmin'),
       ]);
+      User::create([
+            'name'=> 'user',
+            'email'=> 'user@gmail.com',
+            'phone'=> '0002',
+            'Company_name'=> 'textile',
+            'address'=> 'Uttara,Dhaka',
+            'role_id'=>2,
+            'password'=> Hash::make('user'),
+      ]);
     }
 }

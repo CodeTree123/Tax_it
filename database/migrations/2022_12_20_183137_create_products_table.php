@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->integer('hs_code');
-            $table->string('description')->nullable();
+            $table->string('name');
             $table->integer('CD')->nullable();
             $table->string('SD')->nullable();
             $table->integer('VAT')->nullable();
@@ -25,13 +25,13 @@ return new class extends Migration
             $table->integer('ATV')->nullable();
             $table->double('TTI')->nullable();
             $table->double('sCD')->nullable();
-            $table->string('sSD')->nullable();
-            $table->string('sVAT')->nullable();
-            $table->string('sAIT')->nullable();
-            $table->string('sRD')->nullable();
-            $table->string('sATV')->nullable();
+            $table->double('sSD')->nullable();
+            $table->double('sVAT')->nullable();
+            $table->double('sAIT')->nullable();
+            $table->double('sRD')->nullable();
+            $table->double('sATV')->nullable();
             $table->double('sTTI')->nullable();
-            $table->string('TARIFF')->nullable();
+            $table->double('TARIFF')->nullable();
             $table->timestamps();
         });
     }

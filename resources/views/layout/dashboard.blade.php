@@ -1,4 +1,3 @@
-
 @extends('admin_master')
 @section('content')
 <style>
@@ -60,10 +59,31 @@
     font-size: 32px;
   }
 </style>
-<link rel="stylesheet" href="{{asset('Frontend/assets/css/icon.css')}}">
+<!-- <link rel="stylesheet" href="{{asset('Frontend/assets/css/icon.css')}}"> -->
 
 <div class="container">
-  
+  <div class="row">
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-yellow order-card">
+        <div class="card-block">
+          <h6>
+            <i class="fa-solid fa-user-plus"></i>
+          </h6>
+          <span class="f-right">{{$user}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-pink order-card">
+        <div class="card-block">
+          <h6>
+          <i class="fa-solid fa-boxes-stacked"></i>
+          </h6>
+          <span class="f-right">{{$product}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 @endsection

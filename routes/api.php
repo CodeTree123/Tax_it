@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/login',[AdminController::class,'login']);
+Route::post('send_otp', [LoginApiController::class, 'send_otp']);
+Route::post('login_with_otp', [LoginApiController::class, 'login_with_otp']);
