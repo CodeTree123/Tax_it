@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('Company_name');
             $table->string('address');
             $table->string('password');
-            $table->integer('login_status')->default('0');
-            $table->integer('role_id')->default('1');
+            $table->string('device_id')->nullable();
+            $table->string('device_model')->nullable();
+            $table->string('device_os')->nullable();
+            $table->integer('role_id')->default('2');
             $table->rememberToken();
             $table->timestamps();
         });
