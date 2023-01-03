@@ -20,12 +20,15 @@
                     <div class="col">
                         <label for="name" class="form-label">Product Name</label>
                         <input type="text" name="name" class="form-control" id="name" >
+                        <span class="text-danger mt-3">@error('name') {{$message}} @enderror</span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="hs_code" class="form-label">HS - CODE</label>
                         <input type="number" name="hs_code" class="form-control" id="hs_code" >
+                        <span class="text-danger mt-3">@error('hs_code') {{$message}} @enderror</span>
+
                     </div>
                     <div class="col">
                         <label for="CD" class="form-label">CD</label>
@@ -92,7 +95,7 @@
                         <input type="number" name="sATV" class="form-control" id="sATV" >
                     </div>
                 </div>
-                <div class="row mb-2">
+                <div class="row mb-5">
                     <div class="col">
                         <label for="sTTI" class="form-label">sTTI</label>
                         <input type="number" name="sTTI" class="form-control" id="sTTI" >
@@ -103,7 +106,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="d-flex justify-content-center modal-footer mb-4">
                 <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </form>

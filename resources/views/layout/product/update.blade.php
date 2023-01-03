@@ -20,13 +20,15 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="name" class="form-label">Product Name</label>
-                        <input type="text" name="name" class="form-control" id="name" value="{{$product->name}}" aria-describedby="emailHelp">
+                        <input type="text" name="name" class="form-control" id="name" value="{{old('name',$product->name)}}" aria-describedby="emailHelp" old-value>
+                        <span class="text-danger mt-3">@error('name') {{$message}} @enderror</span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="hs_code" class="form-label">HS - CODE</label>
-                        <input type="number" name="hs_code" class="form-control" id="hs_code" value="{{$product->hs_code}}" aria-describedby="emailHelp">
+                        <input type="number" name="hs_code" class="form-control" id="hs_code" value="{{old('name',$product->hs_code)}}" aria-describedby="emailHelp">
+                        <span class="text-danger mt-3">@error('hs_code') {{$message}} @enderror</span>
                     </div>
                     <div class="col">
                         <label for="CD" class="form-label">CD</label>

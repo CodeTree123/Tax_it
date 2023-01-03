@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/OG_Facebook.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/TAX-IT-BD-Logo.png') }}" >
 
     <!-- Bootstrap CSS -->
     @stack('custom-css')

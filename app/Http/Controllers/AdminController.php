@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -48,26 +49,35 @@ class AdminController extends Controller
     }
     public function product_create(Request $request)
     {
-        Product::create([
-            'hs_code' => $request->hs_code,
-            'name' => $request->name,
-            'CD' => $request->CD,
-            'SD' => $request->SD,
-            'VAT' => $request->VAT,
-            'AIT' => $request->AIT,
-            'RD' => $request->RD,
-            'ATV' => $request->ATV,
-            'TTI' => $request->TTI,
-            'sCD' => $request->sCD,
-            'sSD' => $request->sSD,
-            'sVAT' => $request->sVAT,
-            'sAIT' => $request->sAIT,
-            'sRD' => $request->sRD,
-            'sATV' => $request->sATV,
-            'sTTI' => $request->sTTI,
-            'TARIFF' => $request->TARIFF,
+        $validator = Validator::make($request->all(), [
+            'hs_code'    => 'required|numeric',
+            'name'   => 'required',
+
         ]);
-        return redirect()->back()->with('success', 'Product Added Successfully');
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors())->withInput()->with('add', 'sdljvnfsljvn');
+        } else {
+            Product::create([
+                'hs_code' => $request->hs_code,
+                'name' => $request->name,
+                'CD' => $request->CD,
+                'SD' => $request->SD,
+                'VAT' => $request->VAT,
+                'AIT' => $request->AIT,
+                'RD' => $request->RD,
+                'ATV' => $request->ATV,
+                'TTI' => $request->TTI,
+                'sCD' => $request->sCD,
+                'sSD' => $request->sSD,
+                'sVAT' => $request->sVAT,
+                'sAIT' => $request->sAIT,
+                'sRD' => $request->sRD,
+                'sATV' => $request->sATV,
+                'sTTI' => $request->sTTI,
+                'TARIFF' => $request->TARIFF,
+            ]);
+            return redirect()->back()->with('success', 'Product Added Successfully');
+        }
     }
     public function product_edit($id)
     {
@@ -78,27 +88,35 @@ class AdminController extends Controller
     {
 
         $product = Product::find($id);
+        $validator = Validator::make($request->all(), [
+            'hs_code'    => 'required|numeric',
+            'name'   => 'required',
 
-        $product->update([
-            'hs_code' => $request->hs_code,
-            'name' => $request->name,
-            'CD' => $request->CD,
-            'SD' => $request->SD,
-            'VAT' => $request->VAT,
-            'AIT' => $request->AIT,
-            'RD' => $request->RD,
-            'ATV' => $request->ATV,
-            'TTI' => $request->TTI,
-            'sCD' => $request->sCD,
-            'sSD' => $request->sSD,
-            'sVAT' => $request->sVAT,
-            'sAIT' => $request->sAIT,
-            'sRD' => $request->sRD,
-            'sATV' => $request->sATV,
-            'sTTI' => $request->sTTI,
-            'TARIFF' => $request->TARIFF,
         ]);
-        return redirect()->back()->with('success', 'Product Updated Successfully');
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors())->withInput()->with('add', 'sdljvnfsljvn');
+        } else {
+            $product->update([
+                'hs_code' => $request->hs_code,
+                'name' => $request->name,
+                'CD' => $request->CD,
+                'SD' => $request->SD,
+                'VAT' => $request->VAT,
+                'AIT' => $request->AIT,
+                'RD' => $request->RD,
+                'ATV' => $request->ATV,
+                'TTI' => $request->TTI,
+                'sCD' => $request->sCD,
+                'sSD' => $request->sSD,
+                'sVAT' => $request->sVAT,
+                'sAIT' => $request->sAIT,
+                'sRD' => $request->sRD,
+                'sATV' => $request->sATV,
+                'sTTI' => $request->sTTI,
+                'TARIFF' => $request->TARIFF,
+            ]);
+            return redirect()->back()->with('success', 'Product Updated Successfully');
+        }
     }
     public function product_delete($id)
     {
