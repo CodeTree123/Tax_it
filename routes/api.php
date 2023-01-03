@@ -19,9 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('login',[ApiController::class,'login']);
+Route::post('login_update/{phone}',[ApiController::class,'login_update']);
 Route::post('send_otp', [ApiController::class, 'send_otp']);
 Route::post('login_with_otp', [ApiController::class, 'login_with_otp']);
 Route::post('registration', [ApiController::class, 'registration']);
-Route::post('product', [ApiController::class, 'product']);
-Route::post('user', [ApiController::class, 'user']);
+Route::get('product', [ApiController::class, 'product']);
+Route::get('user/{phone}', [ApiController::class, 'user']);
 Route::post('logout', [ApiController::class, 'logout']);

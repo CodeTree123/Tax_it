@@ -48,6 +48,7 @@ class ApiController extends Controller
             ]);
             $mobile['mobile'] =  $user->mobile;
             $response = [
+                'success' => true,
                 'mobile' => $mobile,
                 "message" => 'Otp send successfully.'
             ];
@@ -58,10 +59,11 @@ class ApiController extends Controller
             ]);
             $mobile['mobile'] =  $phone->mobile;
             $response = [
+                'success' => true,
                 'mobile' => $mobile,
                 "message" => 'Otp send successfully.'
             ];
-            return response($response, 201);
+            return response($response, 200);
         }
     }
     public function login_with_otp(Request $request)
@@ -75,12 +77,16 @@ class ApiController extends Controller
 
             ]);
             $response = [
+                'success' => true,
                 "message" => 'Number is verified.',
-               
+
             ];
             return response($response, 200);
         } else {
-            $response = ["message" => 'Unauthorized.'];
+            $response = [
+                'success' => false,
+                "message" => 'Unauthorized.'
+            ];
             return response($response, 401);
         }
     }
@@ -101,21 +107,45 @@ class ApiController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 $token['token'] =  $user->createToken('MyApp')->plainTextToken;
                 $response = [
+                    'success' => true,
                     'user' => $user,
                     "message" => 'successfully Log in.'
                 ];
                 return response($response, 200);
             } else {
-                $response = ["message" => "Invalid Password. "];
+                $response = [
+                    'success' => false,
+                    "message" => "Invalid Password."
+                ];
                 return response($response, 401);
             }
         } else {
-            $response = ["message" => 'User does not exist.'];
+            $response = [
+                'success' => false,
+                "message" => 'User does not exist.'
+            ];
             return response($response, 401);
         }
     }
 
 
+    public function login_update(Request $request, $phone)
+    {
+        $user = User::where('phone', $phone)->first();
+        $user->update([
+            'device_id' => $request->device_id,
+            'device_model' => $request->device_model,
+            'device_os' => $request->device_os,
+        ]);
+
+        $response = [
+            'success' => true,
+            'user' => $user,
+            "message" => 'User register successfully.'
+        ];
+
+        return response($response, 200);
+    }
     public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -127,7 +157,10 @@ class ApiController extends Controller
         }
         $phone = User::where('phone', $request->phone)->first();
         if ($phone) {
-            $response = ["message" => 'You already Have an Account.'];
+            $response = [
+                'success' => false,
+                "message" => 'You already Have an Account.'
+            ];
             return response($response, 401);
         } else {
             $user = User::create([
@@ -143,10 +176,9 @@ class ApiController extends Controller
                 'role_id' => 2
             ]);
 
-            $token['token'] =  $user->createToken('MyApp')->plainTextToken;
             $response = [
+                'success' => true,
                 'user' => $user,
-                'token' => $token,
                 "message" => 'User register successfully.'
             ];
 
@@ -164,22 +196,22 @@ class ApiController extends Controller
     }
     public function product()
     {
-      $product=Product::all();
-      $response = [
-        'products' => $product,
-        "message" => 'product view successfully'
-    ];
-
-    return response($response, 200);
-    }
-    public function user()
-    {
-        $user=User::all();
+        $product = Product::all();
         $response = [
-          'products' => $user,
-          "message" => 'user view successfully'
-      ];
-  
-      return response($response, 200);
+            'products' => $product,
+            "message" => 'product view successfully'
+        ];
+
+        return response($response, 200);
+    }
+    public function user($phone)
+    {
+        $user = User::where('phone', $phone)->get();
+        $response = [
+            'user' => $user,
+            "message" => 'user view successfully'
+        ];
+
+        return response($response, 200);
     }
 }
