@@ -117,14 +117,14 @@ class ApiController extends Controller
                     'success' => false,
                     "message" => "Invalid Password."
                 ];
-                return response($response, 401);
+                return response($response, 200);
             }
         } else {
             $response = [
                 'success' => false,
                 "message" => 'User does not exist.'
             ];
-            return response($response, 401);
+            return response($response, 200);
         }
     }
 
@@ -146,6 +146,38 @@ class ApiController extends Controller
 
         return response($response, 200);
     }
+
+    public function forgot(Request $request, $mobile)
+    {
+        $profile = User::where('phone', $mobile)->get();
+        $validator = Validator::make($request->all(), [
+
+            'new_password' => ['required'],
+            'confirm_password' => ['same:new_password'],
+        ]);
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 401);
+        }
+
+        $success = User::where('phone', $mobile)->update([
+            'password' => Hash::make($request->confirm_password)
+        ]);
+        if ($success) {
+            $response = [
+                'success' => true,
+                "message" => 'password reset successfully.'
+            ];
+            return response($response, 200);
+        } else {
+            $response = [
+                'success' => false,
+                "message" => 'something went wrong.'
+            ];
+    
+            return response($response, 401);
+        }
+    }
+
     public function registration(Request $request)
     {
         $validator = Validator::make($request->all(), [
