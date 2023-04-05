@@ -1,0 +1,152 @@
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+nav{
+    overflow-y: scroll;
+}
+nav ul{
+    font-weight: 600;
+}
+hr{
+    background-color:#000;
+}
+/* .nav-item:hover{
+    background-color: rgba(199, 199, 199, 0.631);
+    border-radius: 10px;
+} */
+/* width */
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cdcdcd; 
+  border-radius: 10px;
+  transition: all .5s;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a2a2; 
+}
+
+.navbar {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    margin-left: 0;
+    background-color: #fff;
+    transition: 0.4s;
+}
+/* .navbar::after{
+    content: "";
+    width: 1.5rem;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+} */
+
+
+.my-container {
+    margin-left: 220px;
+    transition: 0.4s;
+}
+
+
+/* for navbar */
+
+.active-nav {
+    margin-left: -300px;
+}
+.active-shadow {
+    margin-left: -274px !important;
+}
+
+
+/* for main section */
+
+.active-cont {
+    margin-left: 0;
+}
+
+#menu-btn {
+    border-radius: 12px;
+    background-color: #abadb5;
+    color: #fff;
+}
+.shop_image_view{
+    width: 100px;
+    height: 100px;
+}
+
+.b-example-divider {
+    width: .8rem;
+    height: 100%;
+    margin-left: 200px;
+    position: fixed;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    transition: 0.4s;
+}
+.admin_nid img{
+    object-fit: cover;
+}
+.userListModal{ 
+}
+.fancybox__container{ 
+}
+.dataTables_length,.dataTables_info{
+    float: left;
+}
+.dataTables_filter,.dataTables_paginate{
+    float: right;
+}
+
+.fancybox__container{
+    z-index: 1056;
+}
+.admin_posted_images{
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    cursor: pointer;
+}
+.admin_posted_amnities_wrapper {
+    flex-flow: row wrap;
+
+}
+.amnity_box { 
+    flex: 1 1 18%;
+    height: auto;
+    margin: 4px; 
+    width: auto;
+}
+.nav-link:hover{
+    background-color: #d3d5d7;
+    border-radius: 10px;
+}
+.custom_active {
+
+background-color: #d3dbe2;
+border-radius: 10px;
+}
