@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('HSCODE');
             $table->string('DESCRIPTION');
-            $table->string('h2')->nullable();
-            $table->integer('SU')->nullable();
+            $table->string('SU')->nullable();
             $table->integer('CD')->nullable();
             $table->integer('RD')->nullable();
             $table->string('SD')->nullable();
@@ -26,7 +25,7 @@ return new class extends Migration
             $table->integer('AT')->nullable();
             $table->integer('AIT')->nullable();
             $table->double('TTI')->nullable();
-            $table->double('SRO-Ref')->nullable();
+            $table->double('SRO_Ref')->nullable();
             $table->timestamps();
         });
     }

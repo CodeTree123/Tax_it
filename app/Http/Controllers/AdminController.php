@@ -58,23 +58,18 @@ class AdminController extends Controller
             return back()->withErrors($validator->errors())->withInput()->with('add', 'sdljvnfsljvn');
         } else {
             Product::create([
-                'hs_code' => $request->hs_code,
-                'name' => $request->name,
+                'HSCODE' => $request->HSCODE,
+                'DESCRIPTION' => $request->DESCRIPTION,
+                'SU' => $request->SU,
                 'CD' => $request->CD,
+                'RD' => $request->RD,
                 'SD' => $request->SD,
                 'VAT' => $request->VAT,
+                'AT' => $request->AT,
                 'AIT' => $request->AIT,
-                'RD' => $request->RD,
-                'ATV' => $request->ATV,
                 'TTI' => $request->TTI,
-                'sCD' => $request->sCD,
-                'sSD' => $request->sSD,
-                'sVAT' => $request->sVAT,
-                'sAIT' => $request->sAIT,
-                'sRD' => $request->sRD,
-                'sATV' => $request->sATV,
-                'sTTI' => $request->sTTI,
-                'TARIFF' => $request->TARIFF,
+                'SRO_Ref' => $request->SRO_Ref,
+
             ]);
             return redirect()->back()->with('success', 'Product Added Successfully');
         }
@@ -97,23 +92,18 @@ class AdminController extends Controller
             return back()->withErrors($validator->errors())->withInput()->with('add', 'sdljvnfsljvn');
         } else {
             $product->update([
-                'hs_code' => $request->hs_code,
-                'name' => $request->name,
+                'HSCODE' => $request->HSCODE,
+                'DESCRIPTION' => $request->DESCRIPTION,
+                'SU' => $request->SU,
                 'CD' => $request->CD,
+                'RD' => $request->RD,
                 'SD' => $request->SD,
                 'VAT' => $request->VAT,
+                'AT' => $request->AT,
                 'AIT' => $request->AIT,
-                'RD' => $request->RD,
-                'ATV' => $request->ATV,
                 'TTI' => $request->TTI,
-                'sCD' => $request->sCD,
-                'sSD' => $request->sSD,
-                'sVAT' => $request->sVAT,
-                'sAIT' => $request->sAIT,
-                'sRD' => $request->sRD,
-                'sATV' => $request->sATV,
-                'sTTI' => $request->sTTI,
-                'TARIFF' => $request->TARIFF,
+                'SRO_Ref' => $request->SRO_Ref,
+
             ]);
             return redirect()->back()->with('success', 'Product Updated Successfully');
         }
