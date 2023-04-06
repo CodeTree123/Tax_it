@@ -48,8 +48,11 @@
             <td>{{$product->AT}}</td>
             <td>{{$product->AIT}}</td>
             <td>{{$product->TTI}}</td>
+            @if($product->SRO_Ref == 'null')
+            <td>N/A</td>
+            @else
             <td>{{$product->SRO_Ref}}</td>
-
+            @endif
             <td>
                 <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary mb-2">
                     <i class="fa-regular fa-pen-to-square"></i>

@@ -49,14 +49,16 @@ class AdminController extends Controller
     }
     public function product_create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'hs_code'    => 'required|numeric',
-            'name'   => 'required',
+        $request->validate([
+            'HSCODE'=> 'required',
+            'DESCRIPTION'=> 'required',
+            'SU'=> 'required',
 
+        ],[
+            'HSCODE.required'=> 'Hs Code Is Required',
+            'DESCRIPTION.required'=> 'DESCRIPTION Is Required',
+            'SU.required'=> 'Unit Measurement Is Required'
         ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator->errors())->withInput()->with('add', 'sdljvnfsljvn');
-        } else {
             Product::create([
                 'HSCODE' => $request->HSCODE,
                 'DESCRIPTION' => $request->DESCRIPTION,
@@ -72,7 +74,6 @@ class AdminController extends Controller
 
             ]);
             return redirect()->back()->with('success', 'Product Added Successfully');
-        }
     }
     public function product_edit($id)
     {
@@ -83,14 +84,17 @@ class AdminController extends Controller
     {
 
         $product = Product::find($id);
-        $validator = Validator::make($request->all(), [
-            'hs_code'    => 'required|numeric',
-            'name'   => 'required',
+        $request->validate([
+            'HSCODE'=> 'required',
+            'DESCRIPTION'=> 'required',
+            'SU'=> 'required',
 
+        ],[
+            'HSCODE.required'=> 'Hs Code Is Required',
+            'DESCRIPTION.required'=> 'DESCRIPTION Is Required',
+            'SU.required'=> 'Unit Measurement Is Required'
         ]);
-        if ($validator->fails()) {
-            return back()->withErrors($validator->errors())->withInput()->with('add', 'sdljvnfsljvn');
-        } else {
+        
             $product->update([
                 'HSCODE' => $request->HSCODE,
                 'DESCRIPTION' => $request->DESCRIPTION,
@@ -106,7 +110,7 @@ class AdminController extends Controller
 
             ]);
             return redirect()->back()->with('success', 'Product Updated Successfully');
-        }
+     
     }
     public function product_delete($id)
     {

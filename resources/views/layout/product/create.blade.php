@@ -20,16 +20,17 @@
             <div class="col mb-2">
                 <label for="name" class="form-label">Product Name :</label>
                 <input type="text" name="DESCRIPTION" class="form-control" id="name">
-                <span class="text-danger mt-3">@error('name') {{$message}} @enderror</span>
+                <span class="text-danger mt-3">@error('DESCRIPTION') {{$message}} @enderror</span>
             </div>
             <div class="col mb-2">
                 <label for="hs_code" class="form-label">HS - CODE :</label>
-                <input type="number" name="HSCODE" class="form-control" id="hs_code">
+                <input type="text" name="HSCODE" class="form-control" id="hs_code">
                 <span class="text-danger mt-3">@error('HSCODE') {{$message}} @enderror</span>
             </div>
             <div class="col mb-2">
                 <label for="SU" class="form-label">SU :</label>
-                <input type="number" name="SU" class="form-control" id="SU">
+                <input type="text" name="SU" class="form-control" id="SU">
+                <span class="text-danger mt-3">@error('SU') {{$message}} @enderror</span>
             </div>
             <div class="col mb-2">
                 <label for="CD" class="form-label">CD :</label>

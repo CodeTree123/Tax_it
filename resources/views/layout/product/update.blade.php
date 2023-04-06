@@ -21,18 +21,19 @@
                     <div class="col">
                         <label for="name" class="form-label">Product Name</label>
                         <input type="text" name="DESCRIPTION" class="form-control" id="name" value="{{old('name',$product->DESCRIPTION)}}" aria-describedby="emailHelp" old-value>
-                        <span class="text-danger mt-3">@error('name') {{$message}} @enderror</span>
+                        <span class="text-danger mt-3">@error('DESCRIPTION') {{$message}} @enderror</span>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="hs_code" class="form-label">HS - CODE</label>
-                        <input type="number" name="HSCODE" class="form-control" id="hs_code" value="{{old('name',$product->HSCODE)}}" aria-describedby="emailHelp">
+                        <input type="text" name="HSCODE" class="form-control" id="hs_code" value="{{old('hs_code',$product->HSCODE)}}" aria-describedby="emailHelp">
                         <span class="text-danger mt-3">@error('HSCODE') {{$message}} @enderror</span>
                     </div>
                     <div class="col">
                         <label for="SU" class="form-label">SU</label>
-                        <input type="number" name="SU" class="form-control" id="SU" value="{{$product->SU}}" aria-describedby="emailHelp">
+                        <input type="text" name="SU" class="form-control" id="SU" value="{{$product->SU}}" aria-describedby="emailHelp">
+                        <span class="text-danger mt-3">@error('SU') {{$message}} @enderror</span>
                     </div>
                     <div class="col">
                         <label for="CD" class="form-label">CD</label>
@@ -40,7 +41,7 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                <div class="col">
+                    <div class="col">
                         <label for="RD" class="form-label">RD</label>
                         <input type="number" name="RD" class="form-control" id="RD" value="{{$product->RD}}" aria-describedby="emailHelp">
                     </div>
@@ -57,7 +58,7 @@
                     <div class="col">
                         <label for="AIT" class="form-label">AIT</label>
                         <input type="number" name="AIT" class="form-control" id="AIT" value="{{$product->AIT}}" aria-describedby="emailHelp">
-                    </div>                    
+                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
@@ -72,11 +73,9 @@
                 <div class="row mb-3">
                     <div class="col">
                         <label for="SRO_Ref" class="form-label">Sro_ref</label>
-                        <input type="number" name="SRO_Ref" class="form-control" id="SRO_Ref" value="{{$product->SRO_Ref}}" aria-describedby="emailHelp">
+                        <input type="text" name="SRO_Ref" class="form-control" id="SRO_Ref" value="{{$product->SRO_Ref}}" aria-describedby="emailHelp">
                     </div>
                 </div>
-
-
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Update</button>
