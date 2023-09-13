@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+
 
 class AdminController extends Controller
 {
@@ -45,35 +47,39 @@ class AdminController extends Controller
     }
     public function product_add()
     {
-        return view('layout.product.create');
+        $category = Category::all();
+        return view('layout.product.create', compact('category'));
     }
     public function product_create(Request $request)
     {
         $request->validate([
-            'HSCODE'=> 'required',
-            'DESCRIPTION'=> 'required',
-            'SU'=> 'required',
+            'HSCODE' => 'required',
+            'DESCRIPTION' => 'required',
+            'SU' => 'required',
 
-        ],[
-            'HSCODE.required'=> 'Hs Code Is Required',
-            'DESCRIPTION.required'=> 'DESCRIPTION Is Required',
-            'SU.required'=> 'Unit Measurement Is Required'
+        ], [
+            'HSCODE.required' => 'Hs Code Is Required',
+            'DESCRIPTION.required' => 'DESCRIPTION Is Required',
+            'SU.required' => 'Unit Measurement Is Required'
         ]);
-            Product::create([
-                'HSCODE' => $request->HSCODE,
-                'DESCRIPTION' => $request->DESCRIPTION,
-                'SU' => $request->SU,
-                'CD' => $request->CD,
-                'RD' => $request->RD,
-                'SD' => $request->SD,
-                'VAT' => $request->VAT,
-                'AT' => $request->AT,
-                'AIT' => $request->AIT,
-                'TTI' => $request->TTI,
-                'SRO_Ref' => $request->SRO_Ref,
 
-            ]);
-            return redirect()->back()->with('success', 'Product Added Successfully');
+        $product = new Product();
+
+        $product->cat_id = $request->cat_id;
+        $product->HSCODE = $request->HSCODE;
+        $product->DESCRIPTION = $request->DESCRIPTION;
+        $product->SU = $request->SU;
+        $product->CD = $request->CD;
+        $product->RD = $request->RD;
+        $product->SD = $request->SD;
+        $product->VAT = $request->VAT;
+        $product->AT = $request->AT;
+        $product->AIT = $request->AIT;
+        $product->TTI = $request->TTI;
+        $product->SRO_Ref = $request->SRO_Ref;
+
+        $product->save();
+        return redirect()->back()->with('success', 'Product Added Successfully');
     }
     public function product_edit($id)
     {
@@ -85,37 +91,42 @@ class AdminController extends Controller
 
         $product = Product::find($id);
         $request->validate([
-            'HSCODE'=> 'required',
-            'DESCRIPTION'=> 'required',
-            'SU'=> 'required',
+            'HSCODE' => 'required',
+            'DESCRIPTION' => 'required',
+            'SU' => 'required',
 
-        ],[
-            'HSCODE.required'=> 'Hs Code Is Required',
-            'DESCRIPTION.required'=> 'DESCRIPTION Is Required',
-            'SU.required'=> 'Unit Measurement Is Required'
+        ], [
+            'HSCODE.required' => 'Hs Code Is Required',
+            'DESCRIPTION.required' => 'DESCRIPTION Is Required',
+            'SU.required' => 'Unit Measurement Is Required'
         ]);
-        
-            $product->update([
-                'HSCODE' => $request->HSCODE,
-                'DESCRIPTION' => $request->DESCRIPTION,
-                'SU' => $request->SU,
-                'CD' => $request->CD,
-                'RD' => $request->RD,
-                'SD' => $request->SD,
-                'VAT' => $request->VAT,
-                'AT' => $request->AT,
-                'AIT' => $request->AIT,
-                'TTI' => $request->TTI,
-                'SRO_Ref' => $request->SRO_Ref,
 
-            ]);
-            return redirect()->back()->with('success', 'Product Updated Successfully');
-     
+        $product->update([
+            'HSCODE' => $request->HSCODE,
+            'DESCRIPTION' => $request->DESCRIPTION,
+            'SU' => $request->SU,
+            'CD' => $request->CD,
+            'RD' => $request->RD,
+            'SD' => $request->SD,
+            'VAT' => $request->VAT,
+            'AT' => $request->AT,
+            'AIT' => $request->AIT,
+            'TTI' => $request->TTI,
+            'SRO_Ref' => $request->SRO_Ref,
+
+        ]);
+        if ($request->cat_name && $request->cat_hscode) {
+            $cat = Category::find($product->cat_id);
+            $cat->cat_name = $request->cat_name;
+            $cat->cat_hscode = $request->cat_hscode;
+            $cat->save();
+        }
+        return redirect()->back()->with('success', 'Product Updated Successfully');
     }
     public function product_delete($id)
     {
-        $products = Product::findOrFail($id)->delete();
-
+        $products = Product::findOrFail($id);
+        $products->delete();
         return back()->with('success', 'Product Deleted Successfully');
     }
     public function logout()
@@ -123,5 +134,33 @@ class AdminController extends Controller
         Auth::logout();
 
         return redirect()->route('index')->with('success', 'Admin Logout Sucsessfully');
+    }
+
+    //category add
+
+    public function catAdd(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'cat_name' => 'required|unique:categories|max:1000',
+            'cat_hscode' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $category = new Category();
+
+        $category->cat_name = $request->cat_name;
+        $category->cat_hscode = $request->cat_hscode;
+        $category->save();
+        return response()->json(['message' => 'Category added successfully'], 200);
+    }
+
+    public function getCats()
+    {
+        $cats = Category::orderBy('cat_name', 'asc')->get();
+        return response()->json([
+            'cats' => $cats,
+        ]);
     }
 }

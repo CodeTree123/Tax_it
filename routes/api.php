@@ -20,10 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('login',[ApiController::class,'login']);
 Route::post('login_update/{phone}',[ApiController::class,'login_update']);
-Route::post('password/forgot/{mobile}', [ApiController::class,'forgot']);
+Route::post('profile/update/{mobile}', [ApiController::class,'profileUpdate']);
 Route::post('send_otp', [ApiController::class, 'send_otp']);
 Route::post('login_with_otp', [ApiController::class, 'login_with_otp']);
 Route::post('registration', [ApiController::class, 'registration']);
 Route::get('product', [ApiController::class, 'product']);
-Route::get('user/{phone}', [ApiController::class, 'user']);
+Route::get('search', [ApiController::class, 'search']);
+Route::get('user/{mobile}', [ApiController::class, 'user']);
 Route::post('logout', [ApiController::class, 'logout']);

@@ -3,26 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\otptable;
 use App\Models\User;
 use App\Models\Product;
-use Carbon\Carbon;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class ApiController extends Controller
 {
-    function send_sms($phone, $otp)
+    function send_sms($m, $o)
     {
-        $url = "http://202.164.208.226/smsapi";
+        $url = "https://smsportal.codetreebd.com/smsapi";
         $data = [
-            "api_key" => "C20013386235902a575991.44900461",
-            "type" => "text",
-            "contacts" => "88" . $phone,
-            "senderid" => "8809612442105",
-            "msg" => "Your ToletX verification code " . $otp,
+            "api_key" => "C200222865000fd8722d66.00608348",
+            "type" => "unicode",
+            "contacts" => "88" . $m,
+            "senderid" => "8809612444653",
+            "msg" => " আপনার ওটিপি হচ্ছে " . $o,
         ];
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -39,17 +39,19 @@ class ApiController extends Controller
     public function send_otp(Request $request)
     {
         $otp = rand(1000, 9999);
-        $phone = otptable::where('mobile', $request->mobile)->first();
-        $otp_sent = $this->send_sms($phone, $otp);
+        $response = $this->send_sms($request->mobile, $otp);
+        $phone = User::where('mobile', $request->mobile)->first();
         if ($phone == null) {
-            $user = otptable::create([
+            $user = User::create([
                 'mobile' => $request->mobile,
                 'otp' => $otp
             ]);
             $mobile['mobile'] =  $user->mobile;
+            $userOtp['otp'] =  $user->otp;
             $response = [
                 'success' => true,
                 'mobile' => $mobile,
+                'otp' => $userOtp,
                 "message" => 'Otp send successfully.'
             ];
             return response($response, 200);
@@ -58,9 +60,11 @@ class ApiController extends Controller
                 'otp' => $otp
             ]);
             $mobile['mobile'] =  $phone->mobile;
+            $userOtp['otp'] =  $phone->otp;
             $response = [
                 'success' => true,
                 'mobile' => $mobile,
+                'otp' => $userOtp,
                 "message" => 'Otp send successfully.'
             ];
             return response($response, 200);
@@ -68,18 +72,15 @@ class ApiController extends Controller
     }
     public function login_with_otp(Request $request)
     {
-        $phone = otptable::where('mobile', $request->mobile)->first();
+        $phone = User::where('mobile', $request->mobile)->first();
 
         if ($phone && $phone->otp == $request->otp) {
-            $phone->update([
-                'otp' => '',
-                'isverified' => 1,
-
-            ]);
+            $phone->otp = '';
+            $phone->isverified = 1;
+            $phone->save();
             $response = [
                 'success' => true,
-                "message" => 'Number is verified.',
-
+                "message" => 'Log in successful.',
             ];
             return response($response, 200);
         } else {
@@ -147,11 +148,14 @@ class ApiController extends Controller
         return response($response, 200);
     }
 
-    public function forgot(Request $request, $mobile)
+    public function profileUpdate(Request $request, $mobile)
     {
-        $profile = User::where('phone', $mobile)->get();
         $validator = Validator::make($request->all(), [
 
+            'name' => ['required'],
+            'email' => ['required'],
+            'company_name' => ['required'],
+            'address' => ['required'],
             'new_password' => ['required'],
             'confirm_password' => ['same:new_password'],
         ]);
@@ -159,13 +163,17 @@ class ApiController extends Controller
             return response(['errors' => $validator->errors()->all()], 401);
         }
 
-        $success = User::where('phone', $mobile)->update([
-            'password' => Hash::make($request->confirm_password)
+        $success = User::where('mobile', $mobile)->where('role_id', 2)->update([
+            'password' => Hash::make($request->confirm_password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'company_name' => $request->company_name,
+            'address' => $request->address,
         ]);
         if ($success) {
             $response = [
                 'success' => true,
-                "message" => 'password reset successfully.'
+                "message" => 'Profile Update successfully.'
             ];
             return response($response, 200);
         } else {
@@ -173,7 +181,7 @@ class ApiController extends Controller
                 'success' => false,
                 "message" => 'something went wrong.'
             ];
-    
+
             return response($response, 401);
         }
     }
@@ -200,7 +208,7 @@ class ApiController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
-                'Company_name' => $request->Company_name,
+                'company_name' => $request->company_name,
                 'address' => $request->address,
                 'device_id' => $request->device_id,
                 'device_model' => $request->device_model,
@@ -228,20 +236,50 @@ class ApiController extends Controller
     }
     public function product()
     {
-        $product = Product::all();
+        $product = Category::with('childP')->paginate(20);
         $response = [
-            'success'=>true,
-            'data' => $product,
+            'success' => true,
+            'product' => $product,
             "message" => 'product view successfully'
         ];
 
         return response($response, 200);
     }
-    public function user($phone)
+    public function search(Request $request)
     {
-        $user = User::where('phone', $phone)->first();
+        $search = $request->id_or_name;
+        if ($search) {
+            $productP = Category::with('childP')->where('cat_hscode', 'like', '%' . $search . '%')->OrWhere('cat_name', 'like', '%' . $search . '%')->get();
+            if ($productP->count() > 0) {
+                $response = [
+                    'success' => true,
+                    'product ' => $productP,
+                    "message" => 'product view successfully'
+                ];
+                return response($response, 200);
+            } elseif ($productP->count() == 0) {
+                $productC = Product::with('parentP')->where('HSCODE', 'like', '%' . $search . '%')->OrWhere('DESCRIPTION', 'like', '%' . $search . '%')->get();
+                $response = [
+                    'success' => true,
+                    'product ' => $productC,
+                    "message" => 'product view successfully'
+                ];
+                return response($response, 200);
+            }
+        } else {
+            $response = [
+                'success' => false,
+                "message" => 'No Data Found'
+            ];
+
+            return response($response, 200);
+        }
+    }
+    public function user($mobile)
+    {
+        $user = User::where('mobile', $mobile)->first();
         $response = [
-            'success'=>true,
+            'success' => true,
             'user' => $user,
             "message" => 'user view successfully'
         ];

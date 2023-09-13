@@ -69,7 +69,7 @@
           <h6>
             <i class="fa-solid fa-user-plus"></i>
           </h6>
-          <span class="f-right">{{$user}}</span>
+          <span class="f-right my-1">User: {{$user}}</span>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
           <h6>
           <i class="fa-solid fa-boxes-stacked"></i>
           </h6>
-          <span class="f-right">{{$product}}</span>
+          <span class="f-right my-1">Product: {{$product}}</span>
         </div>
       </div>
     </div>

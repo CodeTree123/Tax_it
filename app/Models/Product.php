@@ -9,4 +9,9 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    function parentP()
+    {
+        return $this->belongsTo(Category::class, 'cat_id', 'id');
+    }
 }

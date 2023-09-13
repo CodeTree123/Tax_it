@@ -27,6 +27,7 @@
 
 
     <title>Tax-it BD-Admin panel </title>
+    @stack('script_jquery')
 </head>
 
 <body>

@@ -11,11 +11,19 @@
 </style>
 
 @section('content')
-<div class="card">
+<div class="card m-2">
     <div class="card-body border shadow-lg">
         <form action="{{route('product.update',$product->id)}}" method="post">
             @csrf
             @method('PUT')
+            <div class="form-group">
+                <label for="name">Parent Name</label>
+                <input type="text" class="form-control" name="cat_name" value="{{$product->parentP->cat_name}}">
+            </div>
+            <div class="form-group">
+                <label for="hs">Parent HS Code</label>
+                <input type="text" class="form-control" name="cat_hscode" value="{{$product->parentP->cat_hscode}}">
+            </div>
             <div class="modal-body">
                 <div class="row mb-3">
                     <div class="col">
@@ -78,7 +86,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary w-100">Update</button>
             </div>
         </form>
     </div>

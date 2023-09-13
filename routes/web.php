@@ -14,14 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[AdminController::class,'index'])->name('index');
-Route::post('/login',[AdminController::class,'login'])->name('login');
-Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
-Route::get('/user',[AdminController::class,'user_list'])->name('user.list');
-Route::get('/products/add',[AdminController::class,'product_add'])->name('product.add');
-Route::get('/products',[AdminController::class,'product_list'])->name('product.list');
-Route::post('/product/create',[AdminController::class,'product_create'])->name('product.create');
-Route::get('/products/edit/{id}',[AdminController::class,'product_edit'])->name('product.edit');
-Route::put('/products/update/{id}',[AdminController::class,'product_update'])->name('product.update');
-Route::get('/products/delete/{id}',[AdminController::class,'product_delete'])->name('product.delete');
-Route::get('/logout',[AdminController::class,'logout'])->name('logout');
+Route::get('/', [AdminController::class, 'index'])->name('index');
+Route::post('/login', [AdminController::class, 'login'])->name('login');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/user', [AdminController::class, 'user_list'])->name('user.list');
+Route::get('/products/add', [AdminController::class, 'product_add'])->name('product.add');
+Route::post('/category/add', [AdminController::class, 'catAdd'])->name('category.add');
+Route::get('/get/cats', [AdminController::class, 'getCats'])->name('get.cats');
+Route::get('/products', [AdminController::class, 'product_list'])->name('product.list');
+Route::post('/product/create', [AdminController::class, 'product_create'])->name('product.create');
+Route::get('/products/edit/{id}', [AdminController::class, 'product_edit'])->name('product.edit');
+Route::put('/products/update/{id}', [AdminController::class, 'product_update'])->name('product.update');
+Route::get('/products/delete/{id}', [AdminController::class, 'product_delete'])->name('product.delete');
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
