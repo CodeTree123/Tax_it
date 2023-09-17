@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -226,17 +227,16 @@ class ApiController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->auth()->user()->token()->revoke();
-
+        Auth::logout();
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
     }
     public function product()
     {
-        $product = Category::with('childP')->paginate(20);
+        $product = Product::with('parentP')->paginate(5);
         $response = [
             'success' => true,
             'product' => $product,

@@ -53,11 +53,13 @@ class AdminController extends Controller
     public function product_create(Request $request)
     {
         $request->validate([
+            'cat_id' => 'required',
             'HSCODE' => 'required',
             'DESCRIPTION' => 'required',
             'SU' => 'required',
 
         ], [
+            'cat_id.required' => 'Parent Product Is Required',
             'HSCODE.required' => 'Hs Code Is Required',
             'DESCRIPTION.required' => 'DESCRIPTION Is Required',
             'SU.required' => 'Unit Measurement Is Required'
@@ -92,7 +94,7 @@ class AdminController extends Controller
         $product = Product::find($id);
         $request->validate([
             'HSCODE' => 'required',
-            'DESCRIPTION' => 'required',
+            'DESCRIPTION' => 'required|unique:products',
             'SU' => 'required',
 
         ], [

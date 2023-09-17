@@ -9,12 +9,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 @endpush
 
-<style>
-    .fancybox__container {
-        z-index: 1200;
-    }
-</style>
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -58,7 +52,7 @@
                         <div class="form-group">
                             <form action="{{route('product.create')}}" method="post">
                                 @csrf
-                                <div class="col mb-2">
+                                <div class="col mb-5">
                                     <label for="name" class="form-label">Parent Product</label>
                                     <select class="form-control ajax" id="cat_list" name="cat_id">
                                         <option value="">Select Category</option>
@@ -66,6 +60,7 @@
                                         <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
                                         @endforeach
                                     </select>
+                                    <span class="text-danger mt-3">@error('cat_id') {{$message}} @enderror</span>
                                 </div>
                                 <div class="col mb-2">
                                     <label for="name" class="form-label">Product Description :</label>
@@ -115,7 +110,7 @@
                                     <input type="number" name="SRO_Ref" class="form-control" id="SRO-Ref">
                                 </div>
                                 <div class="d-flex justify-content-center modal-footer mb-4">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary w-100">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -173,7 +168,7 @@
                 }
             });
         });
-        // get latest skill on registration ftech registration form
+        // get latest category on add product form
         $(document).on('click', '#save', function() {
             $.ajax({
                 type: "GET",
