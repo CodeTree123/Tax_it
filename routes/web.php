@@ -27,3 +27,8 @@ Route::get('/products/edit/{id}', [AdminController::class, 'product_edit'])->nam
 Route::put('/products/update/{id}', [AdminController::class, 'product_update'])->name('product.update');
 Route::get('/products/delete/{id}', [AdminController::class, 'product_delete'])->name('product.delete');
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+//begin currency
+Route::get('/currency/add', [AdminController::class, 'currencyAdd'])->name('currency.add');
+Route::post('/currency/post', [AdminController::class, 'currencyPost'])->name('currency.post');
+Route::get('/currency/edit/{id}', [AdminController::class, 'currencyEdit'])->name('currency.edit');
+

@@ -24,6 +24,7 @@ Route::post('profile/update/{mobile}', [ApiController::class,'profileUpdate']);
 Route::post('send_otp', [ApiController::class, 'send_otp']);
 Route::post('login_with_otp', [ApiController::class, 'login_with_otp']);
 Route::post('registration', [ApiController::class, 'registration']);
+Route::get('currency', [ApiController::class, 'getCurrency']);
 Route::get('product', [ApiController::class, 'product']);
 Route::get('search', [ApiController::class, 'search']);
 Route::get('user/{mobile}', [ApiController::class, 'user']);

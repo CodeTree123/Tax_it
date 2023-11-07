@@ -10,6 +10,11 @@
             </a>
         </li>
         <li class="nav-item mt-1 w-100">
+            <a href="{{route('currency.add')}}" class="nav-link text-dark pl-4 {{ Request::routeIs('product.add') ? 'custom_active' : '' }}">
+                Add Currency
+            </a>
+        </li>
+        <li class="nav-item mt-1 w-100">
             <a href="{{route('product.add')}}" class="nav-link text-dark pl-4 {{ Request::routeIs('product.add') ? 'custom_active' : '' }}">
                 Add product
             </a>

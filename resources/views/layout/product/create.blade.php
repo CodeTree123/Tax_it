@@ -54,7 +54,7 @@
                                 @csrf
                                 <div class="col mb-5">
                                     <label for="name" class="form-label">Parent Product</label>
-                                    <select class="form-control ajax" id="cat_list" name="cat_id">
+                                    <select class="form-control" id="cat_list" name="cat_id">
                                         <option value="">Select Category</option>
                                         @foreach($category as $cat)
                                         <option value="{{$cat->id}}">{{$cat->cat_name}}</option>
@@ -94,20 +94,20 @@
                                     <input type="number" name="VAT" class="form-control" id="VAT">
                                 </div>
                                 <div class="col mb-2">
+                                    <label for="AT" class="form-label">AT :</label>
+                                    <input type="number" name="AT" class="form-control" id="AT">
+                                </div>
+                                <div class="col mb-2">
                                     <label for="AIT" class="form-label">AIT :</label>
                                     <input type="number" name="AIT" class="form-control" id="AIT">
                                 </div>
                                 <div class="col mb-2">
-                                    <label for="ATV" class="form-label">AT :</label>
-                                    <input type="number" name="AT" class="form-control" id="AT">
-                                </div>
-                                <div class="col mb-2">
                                     <label for="TTI" class="form-label">TTI :</label>
-                                    <input type="number" name="TTI" class="form-control" id="TTI">
+                                    <input type="numeric" name="TTI" class="form-control" id="TTI">
                                 </div>
                                 <div class="col mb-2">
                                     <label for="SRO-Ref" class="form-label">SRO-Ref :</label>
-                                    <input type="number" name="SRO_Ref" class="form-control" id="SRO-Ref">
+                                    <input type="text" name="SRO_Ref" class="form-control" id="SRO-Ref">
                                 </div>
                                 <div class="d-flex justify-content-center modal-footer mb-4">
                                     <button type="submit" class="btn btn-primary w-100">Create</button>
@@ -133,7 +133,7 @@
         $("#cat_list").select2({
             data: category_list
         });
-        //add skill ajax code start
+        //add category ajax code start
         $(document).on('click', '#save', function() {
             let errorsContainer = $('#errors-container');
             let catName = $('#cat_name').val();

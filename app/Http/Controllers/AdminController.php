@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -49,6 +50,28 @@ class AdminController extends Controller
     {
         $category = Category::all();
         return view('layout.product.create', compact('category'));
+    }
+    public function currencyAdd()
+    {
+        $pageTitle = "Currency";
+        $currency = Currency::all();
+        return view('layout.currency.create', compact('pageTitle', 'currency'));
+    }
+    public function currencyEdit($id)
+    {
+        $pageTitle = "Currency Edit";
+        $currency = Currency::find($id);
+        return view('layout.currency.edit', compact('pageTitle', 'currency'));
+    }
+    public function currencyPost(Request $request)
+    {
+        $currency = new Currency();
+
+        $currency->name = $request->name;
+        $currency->low_rate = $request->low_rate;
+        $currency->high_rate = $request->high_rate;
+        $currency->save();
+        return redirect()->back()->with('success', 'Currency Added Successfully');
     }
     public function product_create(Request $request)
     {

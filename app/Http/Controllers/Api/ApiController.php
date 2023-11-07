@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Currency;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -236,7 +237,7 @@ class ApiController extends Controller
     }
     public function product()
     {
-        $product = Product::with('parentP')->paginate(5);
+        $product = Category::with('childP')->paginate(10);
         $response = [
             'success' => true,
             'product' => $product,
@@ -258,7 +259,11 @@ class ApiController extends Controller
                 ];
                 return response($response, 200);
             } elseif ($productP->count() == 0) {
-                $productC = Product::with('parentP')->where('HSCODE', 'like', '%' . $search . '%')->OrWhere('DESCRIPTION', 'like', '%' . $search . '%')->get();
+                $productC = Category::with('childP')->whereHas('childP', function ($relation) use ($search) {
+                    $relation->where('HSCODE', 'like', '%' . $search . '%')
+                        ->orWhere('DESCRIPTION', 'like', '%' . $search . '%');
+                })->get();
+
                 $response = [
                     'success' => true,
                     'product ' => $productC,
@@ -267,11 +272,15 @@ class ApiController extends Controller
                 return response($response, 200);
             }
         } else {
+            // $response = [
+            //     'success' => false,
+            //     "message" => 'No Data Found'
+            // ];
             $response = [
-                'success' => false,
-                "message" => 'No Data Found'
+                'success' => true,
+                'product ' => [],
+                "message" => 'product view successfully'
             ];
-
             return response($response, 200);
         }
     }
@@ -282,6 +291,18 @@ class ApiController extends Controller
             'success' => true,
             'user' => $user,
             "message" => 'user view successfully'
+        ];
+
+        return response($response, 200);
+    }
+    //currency
+    public function getCurrency()
+    {
+        $currency = Currency::all();
+        $response = [
+            'success' => true,
+            'currency' => $currency,
+            "message" => 'Currency Data Get successfully'
         ];
 
         return response($response, 200);
