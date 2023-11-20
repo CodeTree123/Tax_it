@@ -156,10 +156,10 @@ class ApiController extends Controller
 
             'name' => ['required'],
             'email' => ['required'],
-            'company_name' => ['required'],
-            'address' => ['required'],
-            'new_password' => ['required'],
-            'confirm_password' => ['same:new_password'],
+            // 'company_name' => ['required'],
+            // 'address' => ['required'],
+            // 'new_password' => ['required'],
+            // 'confirm_password' => ['same:new_password'],
         ]);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 401);
@@ -237,7 +237,7 @@ class ApiController extends Controller
     }
     public function product()
     {
-        $product = Category::with('childP')->paginate(10);
+        $product = Product::paginate(20);
         $response = [
             'success' => true,
             'product' => $product,

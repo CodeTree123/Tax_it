@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/TAX-IT-BD-Logo.png') }}" >
+    <link rel="icon" type="image/x-icon" href="{{ asset('admin/img/TAX-IT-BD-Logo.png') }}">
 
     <!-- Bootstrap CSS -->
     @stack('custom-css')
@@ -27,6 +27,7 @@
 
 
     <title>Tax-it BD-Admin panel </title>
+    @stack('style-lib')
     @stack('script_jquery')
 </head>
 
@@ -37,6 +38,7 @@
         @include('include.side_manu')
         <section class="my-container pt-0">
             @include('include.header')
+        <div class="m-2">@include('admin.partials.breadcrumb')</div>
             <section class="p-4 pt-0">
                 @yield('content')
             </section>
@@ -72,9 +74,8 @@
             cus_toast_top: "50px",
         });
     </script>
-
+    @stack('script-lib')
     @stack('custom-scripts')
-
 </body>
 
 

@@ -6,63 +6,70 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Product list</h2>
-</div>
+<div class="card">
+    <div class="card-header">
+        <h2>Product list</h2>
+    </div>
 
-<table id="example" class="table-responsive" style="width:100%">
-    <thead>
-        <tr class="text-center">
-            <th scope="col">#SL</th>
-            <th scope="col">Parent HS CODE</th>
-            <th scope="col">Parent Name</th>
-            <th scope="col">Hs-code</th>
-            <th scope="col">Name</th>
-            <th scope="col">SU</th>
-            <th scope="col">CD</th>
-            <th scope="col">RD</th>
-            <th scope="col">SD</th>
-            <th scope="col">VAT</th>
-            <th scope="col">AIT</th>
-            <th scope="col">AT</th>
-            <th scope="col">TTI</th>
-            <th scope="col">SRO-Ref</th>
-            <th scope="col">Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($products as $key=>$product)
-        <tr class="text-center">
-            <th scope="row">{{$key +1}}</th>
-            <th scope="row">{{@$product->parentP->cat_hscode}}</th>
-            <th scope="row">{{@$product->parentP->cat_name}}</th>
-            <td class="text-center">{{$product->HSCODE}}</td>
-            <td class="table-primary">{{$product->DESCRIPTION}}</td>
-            <td>{{$product->SU}}</td>
-            <td>{{$product->CD}}</td>
-            <td>{{$product->RD}}</td>
-            <td>{{$product->SD}}</td>
-            <td>{{$product->VAT}}</td>
-            <td>{{$product->AT}}</td>
-            <td>{{$product->AIT}}</td>
-            <td>{{$product->TTI}}</td>
-            @if($product->SRO_Ref == null)
-            <td>N/A</td>
-            @else
-            <td>{{$product->SRO_Ref}}</td>
-            @endif
-            <td>
-                <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary m-2">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </a>
-                <a href="{{route('product.delete',$product->id)}}">
-                    <i class="btn btn-danger fa-solid fa-trash"></i>
-                </a>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+    <div class="card-body">
+        <table id="" class="table-responsive" style="width:100%">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col">#SL</th>
+                    <!-- <th scope="col">Parent HS CODE</th>
+            <th scope="col">Parent Name</th> -->
+                    <th scope="col">Hs-code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">SU</th>
+                    <th scope="col">CD</th>
+                    <th scope="col">RD</th>
+                    <th scope="col">SD</th>
+                    <th scope="col">VAT</th>
+                    <th scope="col">AIT</th>
+                    <th scope="col">AT</th>
+                    <th scope="col">TTI</th>
+                    <th scope="col">SRO-Ref</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($products as $key=>$product)
+                <tr class="text-center">
+                    <th scope="row">{{ ($products->currentPage() - 1) * $products->perPage() + $loop->iteration }}</th>
+                    <!-- <th scope="row">{{@$product->parentP->cat_hscode}}</th>
+            <th scope="row">{{@$product->parentP->cat_name}}</th> -->
+                    <td class="text-center">{{$product->HSCODE}}</td>
+                    <td class="table-primary">{{$product->DESCRIPTION}}</td>
+                    <td>{{$product->SU}}</td>
+                    <td>{{$product->CD}}</td>
+                    <td>{{$product->RD}}</td>
+                    <td>{{$product->SD}}</td>
+                    <td>{{$product->VAT}}</td>
+                    <td>{{$product->AT}}</td>
+                    <td>{{$product->AIT}}</td>
+                    <td>{{$product->TTI}}</td>
+                    @if($product->SRO_Ref == null)
+                    <td>N/A</td>
+                    @else
+                    <td>{{$product->SRO_Ref}}</td>
+                    @endif
+                    <td>
+                        <a href="{{route('product.edit',$product->id)}}" class="btn btn-primary m-2">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </a>
+                        <a href="{{route('product.delete',$product->id)}}">
+                            <i class="btn btn-danger fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        {!! $products->links() !!}
+    </div>
+</div>
 @endsection
 
 @push('custom-scripts')
@@ -75,4 +82,8 @@
         $('#example').DataTable();
     });
 </script>
+@endpush
+@push('breadcrumb-plugins')
+<p class="font-weight-light p-2 m-2">Do Search by HS CODE Or Description :</p>
+<x-search-form dateSearch='no' />
 @endpush

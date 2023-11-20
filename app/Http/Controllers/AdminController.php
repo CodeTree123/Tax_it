@@ -43,7 +43,7 @@ class AdminController extends Controller
     }
     public function product_list()
     {
-        $products = Product::all();
+        $products = Product::searchable(['HSCODE', 'DESCRIPTION'])->orderBy('id', 'desc')->paginate(20);
         return view('layout.product.list', compact('products'));
     }
     public function product_add()
