@@ -250,7 +250,7 @@ class ApiController extends Controller
     {
         $search = $request->id_or_name;
         if ($search) {
-            $productP = Category::with('childP')->where('cat_hscode', 'like', '%' . $search . '%')->OrWhere('cat_name', 'like', '%' . $search . '%')->get();
+            $productP = Product::where('HSCODE', 'like', '%' . $search . '%')->OrWhere('DESCRIPTION', 'like', '%' . $search . '%')->get();
             if ($productP->count() > 0) {
                 $response = [
                     'success' => true,

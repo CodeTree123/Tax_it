@@ -66,20 +66,22 @@
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-yellow order-card">
         <div class="card-block">
+        <h3>{{$user}}</h3>
           <h6>
             <i class="fa-solid fa-user-plus"></i>
           </h6>
-          <span class="f-right my-1">User: {{$user}}</span>
+          <span class="f-right my-1">User</span>
         </div>
       </div>
     </div>
     <div class="col-md-4 col-xl-3">
       <div class="card bg-c-pink order-card">
         <div class="card-block">
+        <h3>{{$product}}</h3>
           <h6>
           <i class="fa-solid fa-boxes-stacked"></i>
           </h6>
-          <span class="f-right my-1">Product: {{$product}}</span>
+          <span class="f-right my-1">Product</span>
         </div>
       </div>
     </div>
